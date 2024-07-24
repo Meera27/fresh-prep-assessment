@@ -1,4 +1,4 @@
-# Fresh Prep Assessment - Level 1
+# Fresh Prep Assessment - Level 1 - User API
 
 This project implements a REST API server for user operations as specified in the Fresh Prep Skills Test.
 
@@ -15,6 +15,7 @@ This project implements a REST API server for user operations as specified in th
 - GET /id: Returns a universally unique identifier (expected response time < 50ms)
 - GET /user: Returns random user details (expected response time ~300 ms)
 - POST /user: Creates a new user (expected to fail 50% of the time)
+- GET /users: Returns all the user in db (data.json) (expected response time ~300 ms)
 
 ## Technologies Used
 
@@ -22,6 +23,8 @@ This project implements a REST API server for user operations as specified in th
 - Express.js
 - Jest for testing
 - UUID for generating unique identifiers
+- Cors for handling Cross-Origin Resource Sharing
+- Dotenv for environment variable management
 
 ## Project Structure
 
@@ -34,6 +37,10 @@ This project implements a REST API server for user operations as specified in th
   - `app.js`: Sets up the Express application
   - `server.js`: Starts the server
 - `tests/`: Contains the unit tests
+
+## Implementation of getTone
+
+The `getTone` function is implemented in `src/utils/getTone.js`. It's used to fetch the tone of a user's biography from an external API. This feature is implemented to fulfill the requirements of Level 3 of the challenge. You config the port of tone api in `.env` by default it's running on port `9090`.
 
 ## Testing
 
@@ -74,7 +81,8 @@ Response:
   "name": "John Doe",
   "email": "john.doe@example.com",
   "phone": "123-456-7890",
-  "biography": "A software developer with 5 years of experience in web technologies."
+  "biography": "A software developer with 5 years of experience in web technologies.",
+  "tone": "cynical"
 }
 ```
 

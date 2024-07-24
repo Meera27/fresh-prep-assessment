@@ -6,4 +6,4 @@ export default class User {
     this.phone = phone;
     this.biography = biography;
   }
-}
+} // model for user

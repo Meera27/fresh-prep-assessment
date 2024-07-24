@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  tone-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: level3/tone-api:1.0
+    container_name: tone-api-container
+    ports:
+      - "9090:9090"
+    environment:
+      - PORT=9090
+    restart: unless-stopped
+

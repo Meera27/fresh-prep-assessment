@@ -1,5 +1,6 @@
 <template>
   <div class="user-profile">
+    <h1>New user created successfully !!</h1>
     <h2>{{ user.name }}</h2>
     <p><strong>ID:</strong> {{ user.id }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>

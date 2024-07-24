@@ -3,6 +3,7 @@ import app from '../src/app.js';
 
 describe('API Endpoints', () => {
   describe('GET /id', () => {
+    // Test UUID generation speed
     it('should return a UUID in less than 50ms', async () => {
       const start = Date.now();
       const response = await request(app).get('/id');
@@ -17,6 +18,7 @@ describe('API Endpoints', () => {
   });
 
   describe('GET /user', () => {
+    // Test user retrieval with simulated delay
     it('should return user details with ~300ms delay', async () => {
       const start = Date.now();
       const response = await request(app).get('/user');
@@ -35,6 +37,7 @@ describe('API Endpoints', () => {
   });
 
   describe('POST /user', () => {
+    // Test user creation with 50% success rate
     it('should create a user or fail with 50% probability', async () => {
       const newUser = {
         name: 'Test User',
@@ -55,6 +58,7 @@ describe('API Endpoints', () => {
       expect(failureCount).toBeGreaterThan(40);
     });
 
+    // Test validation of required fields
     it('should return 400 if required fields are missing', async () => {
       const incompleteUser = {
         name: 'Incomplete User'

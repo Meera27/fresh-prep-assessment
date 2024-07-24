@@ -2,17 +2,26 @@ import { v4 as uuidv4 } from 'uuid';
 import { simulateDelay } from '../utils/helpers.js';
 import { readDatabase, writeDatabase, updateDatabase } from '../db/index.js';
 import User from '../models/user.model.js';
+import getTone from '../utils/getTone.js';
 
+// Get all users with their tones
 export const getUsers = async (req, res) => {
   try {
     await simulateDelay(300);
     const data = await readDatabase();
-    res.status(200).json(data.users);
+
+    const usersWithTone = await Promise.all(data.users.map(async (user) => {
+      const tone = await getTone();
+      return { ...user, tone };
+    }));
+
+    res.status(200).json(usersWithTone);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching users' });
   }
 };
 
+// Get a random user with tone
 export const getRandomUser = async (req, res) => {
   try {
     await simulateDelay(300);
@@ -24,20 +33,28 @@ export const getRandomUser = async (req, res) => {
     
     const randomIndex = Math.floor(Math.random() * data.users.length);
     const randomUser = data.users[randomIndex];
+
+    const tone = await getTone();
+    const userWithTone = { ...randomUser, tone };
     
-    res.json(randomUser);
+    res.json(userWithTone);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching random user' });
   }
 };
 
+// Get a specific user by ID with tone
 export const getUser = async (req, res) => {
   try {
     await simulateDelay(300);
     const data = await readDatabase();
+
     const user = data.users.find(u => u.id === req.params.id);
+
     if (user) {
-      res.status(200).json(user);
+      const tone = await getTone();
+      const userWithTone = { ...user, tone };
+      res.status(200).json(userWithTone);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
@@ -46,6 +63,7 @@ export const getUser = async (req, res) => {
   }
 };
 
+// Create a new user
 export const createUser = async (req, res) => {
   try {
     const { name, email, phone, biography } = req.body;
@@ -55,7 +73,9 @@ export const createUser = async (req, res) => {
 
     const newUser = new User(name, email, phone, biography);
     newUser.id = uuidv4();
+    
 
+    // Simulate random failure
     if (Math.random() < 0.5) {
       return res.status(500).json({ message: 'Failed to create user' });
     }
@@ -67,6 +87,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+// Delete a user by ID
 export const deleteUser = async (req, res) => {
   try {
     const data = await readDatabase();
@@ -82,4 +103,3 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: 'Error deleting user' });
   }
 };
-

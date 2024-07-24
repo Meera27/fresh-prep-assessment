@@ -6,15 +6,15 @@
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="text" id="email" v-model="email" required>
+      <input type="email" id="email" v-model="email" required>
     </div>
     <div class="form-group">
       <label for="phone">Phone:</label>
-      <input type="text" id="phone" v-model="phone" required>
+      <input type="tel" id="phone" v-model="phone" required>
     </div>
     <div class="form-group">
       <label for="biography">Biography:</label>
-      <input type="text" id="biography" v-model="biography" required>
+      <textarea id="biography" v-model="biography" required></textarea>
     </div>
     <button type="submit">Create User</button>
   </form>

@@ -10,14 +10,7 @@ body {
   margin: 0 auto;
 }
 
-.user-profile {
-  background-color: #ffffff;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+.user-profile,
 .user-form {
   background-color: #ffffff;
   border-radius: 5px;
@@ -35,7 +28,10 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
@@ -77,4 +73,29 @@ button:hover {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.user-list {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-list li {
+  margin-bottom: 10px;
 }
