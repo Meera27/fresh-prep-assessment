@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "123-456-7890",
+      "biography": "A software developer with 5 years of experience in web technologies."
+    },
+    {
+      "id": "7f8d5a3c-1b9e-4f2a-8c6d-4e7f3a2b1c0d",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "phone": "987-654-3210",
+      "biography": "Marketing specialist with a passion for digital strategies."
+    },
+    {
+      "id": "3e2d1c0b-9a8f-7e6d-5c4b-3a2b1c0d9e8f",
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phone": "456-789-0123",
+      "biography": "Freelance graphic designer specializing in brand identity."
+    },
+    {
+      "id": "2a1b0c9d-8e7f-6d5c-4b3a-2c1d0e9f8a7b",
+      "name": "Bob Wilson",
+      "email": "bob.wilson@example.com",
+      "phone": "789-012-3456",
+      "biography": "Experienced project manager in the construction industry."
+    },
+    {
+      "id": "9e8d7c6b-5a4f-3e2d-1c0b-9a8f7e6d5c4b",
+      "name": "Emma Brown",
+      "email": "emma.brown@example.com",
+      "phone": "321-654-9870",
+      "biography": "Environmental scientist focused on sustainable urban development."
+    },
+    {
+      "id": "bde305dc-66f2-48eb-9adb-2fa418334669",
+      "name": "Sundari",
+      "email": "meera@gmail.com",
+      "phone": "5149806433",
+      "biography": "i'm a sundari"
+    }
+  ]
+}

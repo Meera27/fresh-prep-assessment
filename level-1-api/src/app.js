@@ -1,12 +1,14 @@
 import express from 'express';
+import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
+import idRoutes from './routes/idRoutes.js';
 
 const app = express();
 
-// Middleware to parse JSON request bodies
+app.use(cors());
 app.use(express.json());
 
-// Use the user routes
-app.use('/', userRoutes);
+app.use('/user', userRoutes);
+app.use('/id', idRoutes);
 
 export default app;

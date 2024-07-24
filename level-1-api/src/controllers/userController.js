@@ -1,55 +1,85 @@
 import { v4 as uuidv4 } from 'uuid';
 import { simulateDelay } from '../utils/helpers.js';
+import { readDatabase, writeDatabase, updateDatabase } from '../db/index.js';
+import User from '../models/user.model.js';
 
-
-let user = []
-// Controller for generating and returning a UUID
-export const getId = (req, res) => {
-  const id = uuidv4();
-  res.json({ id });
+export const getUsers = async (req, res) => {
+  try {
+    await simulateDelay(300);
+    const data = await readDatabase();
+    res.status(200).json(data.users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users' });
+  }
 };
 
-// Controller for getting user details with a simulated delay
+export const getRandomUser = async (req, res) => {
+  try {
+    await simulateDelay(300);
+    const data = await readDatabase();
+    
+    if (data.users.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+    }
+    
+    const randomIndex = Math.floor(Math.random() * data.users.length);
+    const randomUser = data.users[randomIndex];
+    
+    res.json(randomUser);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching random user' });
+  }
+};
+
 export const getUser = async (req, res) => {
   try {
-    // Simulate a 300ms delay
     await simulateDelay(300);
-    
-    // Create a mock user object
-    if(user.length == 0){
-    const firstUser = {
-      id: uuidv4(),
-      name: 'Firstuser',
-      email: 'first@gmail.com',
-      phone : "0000000000"
-    };
-    res.status(200).json(firstUser);
-  }
-  const randomUser = user[Math.floor(Math.random() * user.length)];
-  res.json(randomUser);
+    const data = await readDatabase();
+    const user = data.users.find(u => u.id === req.params.id);
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching user details' });
+    res.status(500).json({ message: 'Error fetching user' });
   }
 };
 
-// Controller for simulating user creation with 50% success rate
 export const createUser = async (req, res) => {
   try {
+    const { name, email, phone, biography } = req.body;
+    if (!name || !email || !phone || !biography) {
+      return res.status(400).json({ message: 'Name, email, phone and biography are required' });
+    }
+
+    const newUser = new User(name, email, phone, biography);
+    newUser.id = uuidv4();
+
     if (Math.random() < 0.5) {
       return res.status(500).json({ message: 'Failed to create user' });
     }
 
-    const { name, email, phone } = req.body;
-    if (!name || !email || !phone) {
-      return res.status(400).json({ message: 'Name, email and phone are required' });
-    }
-
-    const newUser = { id: uuidv4(), name, email, phone };
-    user.push(newUser);
-
+    await writeDatabase(newUser);
     res.status(201).json({ message: 'User created successfully', user: newUser });
   } catch (error) {
     res.status(500).json({ message: 'Error creating user' });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    const data = await readDatabase();
+    const userIndex = data.users.findIndex(u => u.id === req.params.id);
+    if (userIndex !== -1) {
+      data.users.splice(userIndex, 1);
+      await updateDatabase(data);
+      res.status(200).json({ message: 'User deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting user' });
   }
 };
 
